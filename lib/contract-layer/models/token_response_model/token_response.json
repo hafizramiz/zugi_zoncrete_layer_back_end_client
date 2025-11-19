@@ -1,0 +1,38 @@
+{
+  // ----------------------------------------
+  // GENEL API ZARFI (Sizin Standartlarınız)
+  // ----------------------------------------
+  "statusCode": 200,
+  "__type": "TResponse",
+  "message": "Token başarıyla yenilendi ve oturum güncellendi.",
+  "methodId": 101, // Örn: Exchange Token Metot ID'si
+  "pageDirection": 20, // Örn: PageDirectionCodes.home (Ana Sayfa)
+
+  // ----------------------------------------
+  // OAUTH 2.0 TOKEN BİLGİLERİ (Standard)
+  // ----------------------------------------
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWhhbiIsImlhdCI6MTUxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fWfCqS0q2W5Q",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXNzaW9uX2tleSIsImV4cCI6MTgwMDAwMDAwMH0.R_K_Y9t7s0XFf8nFz",
+  "tokenType": "Bearer",
+
+  // Not: OAuth standardında 'expires_in' (saniye) kullanılır, ancak modeliniz 'DateTime' bekliyor.
+  "accessTokenExpirationDateTime": "2025-11-18T13:45:00.000Z",
+
+  "idToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2F1dGguY29tIiwic3ViIjoiMTIzNDU2NzkwIiwibmFtZSI6IkFsaSIsImlhdCI6MTUxNjIzOTAyMn0.R_K_Y9t7s0XFf8nFzR",
+
+  // ----------------------------------------
+  // OTURUM BİLGİLERİ (Ekstra)
+  // ----------------------------------------
+  "lastActivedTime": "2025-11-18T10:45:00.000Z"
+}
+
+
+
+
+Yanit kodlari arastirilip best practice kodlar dondurulecek
+
+Yanıt Durumu,Sonuç,Yönlendirme
+✅ 200 Başarılı Yanıt,Yeni Access Token alındı.,Tüm config'i uygulayıp Ana Sayfaya yönlendir.
+❌ 400/401 Hata Yanıtı,Token süresi doldu veya sunucuda iptal edildi (invalid_grant).,Giriş Ekranına yönlendir.
+
+Ornek https://auth0.com/docs/api/management/v2/refresh-tokens/get-refresh-token#response-messages

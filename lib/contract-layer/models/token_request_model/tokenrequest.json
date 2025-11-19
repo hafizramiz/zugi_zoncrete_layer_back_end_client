@@ -1,0 +1,20 @@
+//Token Request Model JSON Şeması
+
+{
+  // ----------------------------------------
+  // GENEL İSTEK ZARFI (Kök Dizinde)
+  // ----------------------------------------
+  "__type": "TokenRequest",
+  "requestTag": "BackgroundTokenRefresh",
+  "methodId": 101,
+
+  // ----------------------------------------
+  // OAUTH 2.0 PARAMETRELERİ (Kök Dizine Taşındı)
+  // ----------------------------------------
+  "client_id": "mobile_app_id_12345",
+  "grant_type": "refresh_token",
+  "refresh_token": "aBC_long_lived_secret_refresh_token_XYZ",
+
+  // Diğer Opsiyonel Alanlar (eğer gönderiliyorsa)
+  // "client_secret": null
+}

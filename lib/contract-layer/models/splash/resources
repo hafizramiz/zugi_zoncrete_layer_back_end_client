@@ -1,0 +1,54 @@
+Bu çok yerinde ve önemli bir sorudur. Uygulama başlatma akışında **"gerekli olmayan"** veriyi çekmekten kaçınmak en iyi performansı sağlar.
+
+**En iyi pratik (Best Practice), Onboarding slayt içeriklerini, Onboarding'i gösterme kararı kesinleştikten sonra çekmektir.**
+
+Ancak, Splash Screen'de Remote Config'i çektiğinizde, bu verinin uygulamanın geri kalanı için kritik olduğunu unutmamak gerekir (API adresi, sürüm kontrolü, vb.).
+
+İşte iki farklı yaklaşım ve neden **Splash Screen'de içeriği almanın** genellikle daha pratik olduğu:
+
+---
+
+## 1. 🥇 Yaklaşım: Splash Screen'de Çekmek (Önerilen)
+
+Onboarding içeriklerini (5 slaytın başlıkları, açıklamaları ve URL'leri) **Splash Screen'de Remote Config ile birlikte çekmek** en yaygın ve performansı optimize eden yaklaşımdır.
+
+### Neden En İyi Pratik?
+
+| Fayda | Açıklama |
+| :--- | :--- |
+| **Tek Ağ Çağrısı** | Sadece bir REST API çağrısı (Splash Init) yaparak hem zorunlu ayarları hem de potansiyel Onboarding içeriğini alırsınız. Bu, uygulama başlatma süresini kısaltır. |
+| **Anlık Görüntüleme** | Onboarding'in gösterilmesi gerektiği anda (Refresh Token kontrolünden önce), slayt içerikleri (özellikle görsel URL'leri) **hazır** olur. Kullanıcıya ekstra bir yüklenme ekranı göstermenize gerek kalmaz. |
+| **Düşük Veri Yükü** | 5 slaytın metin ve URL bilgisi çok düşük bir veri yüküdür (genellikle birkaç kilobayt). Bu veri için ayrı bir API çağrısı yapmaya değmez. |
+
+### Akışın Uygulanışı:
+
+1.  **Splash Screen** $\rightarrow$ `POST /api/v1/init` isteği atılır.
+2.  Backend, `onboardingSlides` listesini **içinde dolu olarak** döndürür.
+3.  **Yerel Kontrol:** `shared_preferences` kontrol edilir. Kullanıcı daha önce gördüyse, `onboardingSlides` listesi **göz ardı edilir** ve akış **Refresh Token Kontrolüne** geçer.
+4.  **Kontrol:** Kullanıcı ilk kez açıyorsa, `onboardingSlides` hemen kullanılarak Onboarding ekranı açılır.
+
+---
+
+## 2. 🥈 Yaklaşım: Oturum Kontrolünden Sonra Çekmek (Daha Az Tercih Edilen)
+
+Onboarding içeriklerini sadece gösterilmesi gerektiğinde, ayrı bir API çağrısıyla çekmek.
+
+### Neden Tercih Edilmez?
+
+| Sorun | Açıklama |
+| :--- | :--- |
+| **Çift Ağ Çağrısı** | Uygulama başlatma sırasında arka arkaya iki API çağrısı yaparsınız: 1) Config için, 2) Onboarding içeriği için. Bu, başlatma süresini uzatır. |
+| **Ekstra Yükleme** | Kullanıcı Onboarding ekranına yönlendirildiğinde, slaytlar yüklenene kadar bir **"Loading..."** göstergesi görmek zorunda kalır. |
+
+### Akışın Uygulanışı:
+
+1.  **Splash Screen** $\rightarrow$ `POST /api/v1/init` isteği atılır (Sadece zorunlu ayarlar döner, **`onboardingSlides` boş veya yoktur**).
+2.  **Yerel Kontrol:** `shared_preferences` kontrol edilir. Kullanıcı ilk kez açıyorsa...
+3.  **Yeni İstek:** $\rightarrow$ `GET /api/v1/config/onboarding` gibi ayrı bir istek atılır.
+4.  **Yönlendirme:** Onboarding ekranına yönlendirilir.
+
+---
+
+## Genel Tavsiye
+
+**1. Yaklaşım (Splash Screen'de Çekmek)**, birleşik (unified) bir başlatma stratejisi sağladığı için hem kod temizliği hem de performans açısından daha iyidir. **Veriyi alsanız bile, kullanıcının gördüğü bilgiyi yöneten bayrak yerel depolamada kalır.** Backend'in görevi **içeriği sağlamak**, Flutter'ın görevi ise **yerel duruma göre ne zaman gösterileceğine karar vermektir.**

@@ -1,0 +1,83 @@
+
+/// Burasi ornek teskil etmektedir.
+Mehtod: POST
+Endpoint: /api/init
+REQUEST MODEL:  InitRequestModel
+RESPONSE MODEL: InitResponseModel
+
+
+
+/// InitRequestModel
+{
+  // ----------------------------------------
+  // KÖK DİZİN (Genel İstek Zarfı)
+  // ----------------------------------------
+  "type": "InitRequestModel",   /// Back ende gonderilecek request modelin ismini belitir.
+  "requestTag": "SplashView",   /// İstekle ilişkilendirilen etiket
+  // ----------------------------------------
+  // DATA YÜKÜ (Config Bilgileri)
+  // ----------------------------------------
+  "data": {
+    "bundleIdentifier": "com.app.example",
+    "clientId": "mobile_client_id",
+    "frontendUrl": "https://api.example.com",     /// Ben şu an bu sunucu adresine (Base URL) bağlıyım" beyanını içerir.
+    "appVersion": "1.5.0",   /// Uygulama version bilgisini icerir.
+    "language": "tr",
+    "isDebug": true,      /// Uygulamanın debug modunda çalışıp çalışmadığını belirtir.
+    "deviceId": "ABC-DEVICE-ID",   /// Cihazın benzersiz kimliğini içerir.
+    "deviceOSType": "Android",    /// Cihaz işletim sistemi türünü belirtir (Android/iOS).
+    "isEmulator": false,          /// Cihazın emülatör olup olmadığını belirtir.
+    "connectionType": "Wifi",     /// Cihazın internet bağlantı türünü belirtir (Wifi/Cellular/None).
+    "screenSize": "1080x1920",    /// Cihaz ekran boyutunu belirtir.
+    "notificationPermission": true  /// Kullanıcının bildirim izni verip vermediğini belirtir.
+  }
+}
+
+
+
+
+
+
+
+
+/// From https://gemini.google.com/share/724bf55ed763
+Istek Yapisinin Ozeti
+
+Bileşen,Değer/Açıklama,Sizin Modelinizde Karşılığı
+HTTP Metodu,POST,(Ağ katmanınızda belirlenir)
+URL,/api/v1/init,(Genellikle apiBaseUrl'den sonra eklenir)
+İstek Gövdesi (Body),InitRequestModel,Kök seviye meta verileri + data içinde Config objesi
+Beklenen Yanıt,InitResponseModel,Kök seviye meta verileri + data içinde RemoteConfigResponseModel
+
+
+
+
+Ilave Config Ayarlari
+
+
+"data": {
+// --- MEVCUT ALANLAR ---
+"bundleIdentifier": "com.app.example",
+"clientId": "mobile_client_id",
+"frontendUrl": "https://api.example.com",
+"appVersion": "1.5.0",
+"language": "tr",
+"isDebug": true,
+"deviceId": "ABC-DEVICE-ID",
+"deviceOSType": "Android",
+"isEmulator": false,
+"connectionType": "Wifi",
+"screenSize": "1080x1920",
+"notificationPermission": true,
+
+// --- EKLENEN ÖNERİLER ---
+"buildNumber": "42",                 // Versiyon takibi için
+"osVersion": "13.0.1",               // SDK seviyesi belirlemek için
+"deviceModel": "Google Pixel 6",     // Cihaza özel bugları çözmek için
+"timeZone": "Europe/Istanbul",       // Doğru zamanda bildirim atmak için
+"region": "TR",                      // Formatlama (Tarih/Para) için
+"isRooted": false,                   // Güvenlik kontrolü
+"installerStore": "Google Play",     // Korsan kurulum tespiti
+"themeMode": "Dark",                 // İçerik uyumu için
+"fcmToken": "fcm_token_string_xyz"   // Bildirim gönderebilmek için
+}

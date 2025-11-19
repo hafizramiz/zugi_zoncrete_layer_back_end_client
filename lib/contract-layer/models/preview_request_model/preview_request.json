@@ -1,0 +1,7 @@
+/// Burasi ornek teskil etmektedir.
+Mehtod: GET
+Endpoint: GET /api/v1/preview-features
+REQUEST MODEL: Olmayacak.
+RESPONSE MODEL: PreviewFeaturesRequestModel
+
+

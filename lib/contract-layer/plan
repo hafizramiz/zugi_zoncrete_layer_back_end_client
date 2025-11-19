@@ -1,0 +1,3 @@
+Token Request Model ve Parametreleri
+Bu model kullanilarak refresh token gonderilip access token elde edilir.
+

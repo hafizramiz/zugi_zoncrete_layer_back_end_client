@@ -1,0 +1,62 @@
+// GET /api/v1/preview-features/A100/items
+
+{
+  // ----------------------------------------
+  // GENEL YANIT ZARFI (API Standardı)
+  // ----------------------------------------
+  "statusCode": 200,
+  "type": "FeatureItemsResponseModel",
+  "message": "Özellik detayları ve listesi başarıyla alındı.",
+------------
+  // DATA YÜKÜ (Liste)
+  // ----------------------------------------
+  "data":  [
+      // 1. ÖGE: AÇIK (Preview için ÜCRETSİZ)
+      {
+        "itemId": "EK001",
+        "itemTitle": "Güneş Sistemi Kitabı",
+        "itemSummary": "Gezegenleri keşfet.",
+        "thumbnailUrl": "https://cdn.example.com/books/sun.jpg",
+        "isFree": true,
+        "isLocked": false,
+        // <-- BU ÖNEMLİ: AÇIK
+        "lockReason": "Free Preview"
+      },
+      // 2. ÖGE: AÇIK (Preview için ÜCRETSİZ)
+      {
+        "itemId": "EK002",
+        "itemTitle": "Kodlama Oyuncakları",
+        "itemSummary": "Python ile ilk adımlar.",
+        "thumbnailUrl": "https://cdn.example.com/books/code.jpg",
+        "isFree": true,
+        "isLocked": false,
+        // <-- BU ÖNEMLİ: AÇIK
+        "lockReason": "Free Preview"
+      },
+      // 3. ÖGE: KAPALI (Login/Abonelik Gerektirir)
+      {
+        "itemId": "EK003",
+        "itemTitle": "Gelişmiş Yapay Zeka",
+        "itemSummary": "Derin öğrenme modelleri üzerine ileri seviye rehber.",
+        "thumbnailUrl": "https://cdn.example.com/books/ai.jpg",
+        "isFree": false,
+        "isLocked": true,
+        // <-- BU ÖNEMLİ: KAPALI
+        "lockReason": "Premium Subscription"
+      },
+      // 4. ÖGE: KAPALI (Login/Abonelik Gerektirir)
+      {
+        "itemId": "EK004",
+        "itemTitle": "Web 3.0 Mimarisi",
+        "itemSummary": "Blockchain ve merkeziyetsiz uygulamalar.",
+        "thumbnailUrl": "https://cdn.example.com/books/web3.jpg",
+        "isFree": false,
+        "isLocked": true,
+        // <-- BU ÖNEMLİ: KAPALI
+        "lockReason": "Premium Subscription"
+      }
+      // ... Diğer kilitli ögeler
+    ]
+
+  }
+}

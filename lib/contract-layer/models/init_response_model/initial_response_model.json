@@ -1,0 +1,238 @@
+/// INitial Response Model - Örnek JSON Yanıt
+
+/// Burasi ornek teskil etmektedir.
+Mehtod: POST
+Endpoint: /api/init
+REQUEST MODEL:  InitRequestModel
+RESPONSE MODEL: InitResponseModel
+
+/// InitResponseModel   --- Success Case
+{
+  // ----------------------------------------
+  // GENEL YANIT ZARFI (API Standardı)
+  // ----------------------------------------
+  "statusCode": 200,
+  "type": "InitResponseModel",
+  "message": "Uygulama başlatma yapılandırması başarıyla alındı.",    //İstek başarılı oldu ve yeni konfigürasyon verisi gövdede (body) mevcut.
+  // ----------------------------------------
+  // ZORUNLU YAPILANDIRMA AYARLARI
+  // ----------------------------------------
+  "minSupportedVersion": "1.4.5",   // Minimum desteklenen uygulama sürümü
+  "apiBaseUrl": "https://api.mybackend.com/v2/",  /// Bundan sonra bu baseUrl'e baglanacagiz.
+  "maintenanceMode": false
+  "forceUpdate": false,
+
+  // ----------------------------------------
+  // DİNAMİK ONBOARDING İÇERİĞİ
+  // ----------------------------------------
+ "data":{
+  "onboardingSlides": [
+          {
+          "title": "Akademik Temelli Bilimsel Model",
+          "description": "Uygulamamızın en yeni özelliklerini keşfetmeye hazır olun.",
+          "imageUrl": "https://cdn.example.com/onboarding/slide1_welcome.png"
+          },
+          {
+          "title": "Anlık Bildirimler",
+          "description": "Önemli gelişmeleri kaçırmamak için bildirimleri açın.",
+          "imageUrl": "https://cdn.example.com/onboarding/slide2_notifications.png"
+          },
+          {
+          "title": "Güvenli İşlemler",
+          "description": "Tüm finansal işlemlerinizde en yüksek güvenlik standartlarını uyguluyoruz.",
+          "imageUrl": "https://cdn.example.com/onboarding/slide3_security.png"
+          },
+          {
+          "title": "Kişiselleştirme",
+          "description": "Uygulamayı tercihinize göre ayarlayın.",
+          "imageUrl": "https://cdn.example.com/onboarding/slide4_custom.png"
+          },
+          {
+          "title": "Başlamaya Hazırız! 🎉",
+          "description": "Hemen giriş yaparak veya kayıt olarak mükemmel deneyime geçin.",
+          "imageUrl": "https://cdn.example.com/onboarding/slide5_start.png"
+          }
+      ]
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+/// feature flag nedir? https://gemini.google.com/share/76f3fcfdef10
+
+
+
+
+/// V2'de Eklenecekler
+"configHash": "XYZ123ABC",
+"timeoutSeconds": 20,
+"sessionTimeoutMinutes": 45,
+
+// ----------------------------------------
+// ÖZELLİK BAYRAKLARI (FEATURE FLAGS)
+// ----------------------------------------
+"featureFlags": {
+"isNewUiEnabled": true,
+"onboardingEnabled": true,
+// Global olarak Onboarding'in aktif olduğunu belirtir
+"isNfcPaymentEnabled": true,
+"maintenanceMode": false
+},
+
+ve ya Etag Header ile config'in versiyon takibi yapılıp,
+sadece değişen config'ler çekilebilir.
+
+
+
+V2 iciin kaynak teskil edebilir.
+
+
+
+
+Harika bir geçiş planı. V1 sürümünüz temel ihtiyaçları karşılıyor ancak V2 için düşündüğünüz `configHash`, `ETag` ve `Feature Flags` yapıları, uygulamanızı "statik" bir yapıdan **"uzaktan yönetilebilir dinamik bir mimariye"** taşıyacaktır.
+
+Özellikle **ETag** veya **ConfigHash** kullanımı, sunucu maliyetlerini ve kullanıcı internet kullanımını ciddi oranda düşürür.
+
+V2 versiyonunuza ekleyebileceğiniz, endüstri standardı (Best Practice) olan diğer kritik parametreleri aşağıda gruplandırdım:
+
+### 1\. Uygulama Güncelleme Yönetimi (Update Management)
+
+Sadece `minSupportedVersion` yetmeyebilir. Kullanıcıyı güncellemeye zorlamadan "Yeni özellikler geldi, güncellemek ister misin?" diyebilmek (Soft Update) için bu alanlar gereklidir.
+
+```json
+"updateConfig": {
+"forceUpdate": false,           // true ise kullanıcı uygulamayı kullanamaz, markete gider.
+"softUpdate": true,             // true ise "Güncelle" butonu çıkar ama "Daha Sonra" diyebilir.
+"latestVersion": "1.6.0",       // Marketteki en son sürüm.
+"storeUrl": "https://apps.apple.com/app/id123456", // Direkt mağaza linki.
+"updateTitle": "Büyük Kış Güncellemesi!",
+"updateMessage": "Performans iyileştirmeleri ve yeni özellikler eklendi."
+}
+```
+
+### 2\. Yasal ve Destek Linkleri (Legal & Support)
+
+Bu linkleri uygulama içine gömmek (hardcode) risklidir. Link değişirse uygulama bozulur. Sunucudan çekmek en iyisidir.
+
+```json
+"legalUrls": {
+"privacyPolicy": "https://example.com/gizlilik",
+"termsOfService": "https://example.com/sartlar",
+"faq": "https://example.com/sss",
+"supportEmail": "destek@example.com",
+"whatsappSupport": "https://wa.me/905550000000" // WhatsApp destek hattı
+}
+```
+
+### 3\. Ağ ve CDN Ayarları (Network Optimization)
+
+API dışında, resimlerin çekileceği sunucuyu veya bağlantı zaman aşımlarını yönetmek için.
+
+```json
+"networkConfig": {
+"cdnBaseUrl": "https://cdn-v2.example.com/", // Resimlerin çekileceği hızlı sunucu.
+"retryCount": 3,            // İstek başarısız olursa kaç kez denesin?
+"connectTimeoutMs": 30000,  // Bağlantı zaman aşımı (milisaniye).
+"receiveTimeoutMs": 30000   // Veri okuma zaman aşımı.
+}
+```
+
+### 4\. Loglama ve Analitik Seviyesi (Remote Debugging)
+
+Uygulama yayındayken bir sorun olduğunda, market güncellemesi çıkmadan log seviyesini artırarak hatayı yakalayabilirsiniz.
+
+```json
+"loggingConfig": {
+"logLevel": "ERROR",        // DEBUG, INFO, WARNING, ERROR. (Normalde ERROR, sorun varsa DEBUG yaparsınız).
+"enableCrashlytics": true,  // Hata raporlamayı uzaktan açıp kapatma.
+"enableAnalytics": true     // Google Analytics/Firebase takibini durdurma/başlatma.
+}
+```
+
+### 5\. Güvenlik ve Erişim (Security)
+
+```json
+"securityConfig": {
+"allowBiometricLogin": true, // FaceID/TouchID kullanılabilir mi?
+"allowScreenshots": true,    // (Android için) Ekran görüntüsü alınmasını engelleme.
+"maxLoginAttempts": 5        // Yanlış şifre deneme hakkı.
+}
+```
+
+-----
+
+### ETag vs ConfigHash: Hangisi?
+
+Sorunuzda bahsettiğiniz `ETag` ve `configHash` aynı kapıya çıkar, ancak yöntemleri farklıdır.
+
+* **ConfigHash (Body İçinde):** Sizin manuel yönettiğiniz bir versiyonlama.
+
+* *Avantajı:* Kontrol tamamen sizde, veritabanına kaydedip mantıksal işlemler yapabilirsiniz.
+* *Dezavantajı:* Sunucu önce isteği işler, veriyi hazırlar, sonra hash kontrolü yapar. (İşlemci gücü harcanır).
+
+* **ETag (Header İçinde - Önerilen):** HTTP protokolünün standart önbellekleme mekanizmasıdır.
+
+* **Nasıl Çalışır?**
+1.  İstemci: `GET /init` (Header: `If-None-Match: "XYZ123"`) gönderir.
+2.  Sunucu (Load Balancer/Nginx katmanı): Eğer içerik değişmediyse isteği backend koda (Dart/Node.js) bile sokmadan direkt **`304 Not Modified`** döner.
+* *Avantajı:* Çok daha hızlıdır ve sunucu kaynağını en az tüketen yöntemdir.
+
+-----
+
+### 🚀 V2 İçin Nihai JSON Önerisi
+
+Aşağıda tüm önerilerin birleştirildiği profesyonel **V2 Init Response** yapısı bulunmaktadır:
+
+```json
+{
+"statusCode": 200,
+"type": "InitResponseModel",
+"message": "OK",
+
+// --- VERSİYONLAMA VE ZAMANLAMA ---
+"configHash": "a1b2c3d4e5", // Veya Header'da ETag kullanılır
+"serverTime": "2025-11-19T10:00:00Z", // Cihaz saati yanlışsa düzeltmek için
+
+// --- KRİTİK AYARLAR ---
+"apiBaseUrl": "https://api.v2.example.com/",
+"maintenanceMode": false,
+
+// --- GÜNCELLEME YÖNETİMİ ---
+"updateConfig": {
+"minSupportedVersion": "1.4.5",
+"latestVersion": "1.6.0",
+"forceUpdate": false,
+"softUpdate": true,
+"storeUrl": "market://details?id=com.example.app",
+"title": "Yeni Özellikler!",
+"message": "Daha hızlı ve güvenli bir deneyim için güncelleyin."
+},
+
+// --- FEATURE FLAGS (Özellik Aç/Kapa) ---
+"featureFlags": {
+"isNewUiEnabled": true,
+"isNfcPaymentEnabled": true,
+"isDarkThemeEnabled": true,
+"showStories": false // Instagram benzeri hikayeler özelliği kapalı
+},
+
+// --- YASAL & DESTEK ---
+"legalUrls": {
+"privacy": "https://example.com/privacy",
+"terms": "https://example.com/terms",
+"faq": "https://example.com/faq"
+},
+
+// --- İÇERİK (ONBOARDING & PREVIEW) ---
+"onboardingSlides": [ ... ], // Mevcut yapınız
+"previewFeatures": [ ... ]   // Mevcut yapınız
+}
+```

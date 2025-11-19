@@ -1,0 +1,43 @@
+
+///GET /api/v1/preview-features
+
+
+Özellik,Değer
+Metot,GET
+URI,/api/v1/preview-features
+Amaç,"Tüm önizleme özelliklerinin listesini ve meta verilerini (başlık, ikon, yönlendirme kodu) döndürür."
+Yetkilendirme,Gerektirmez (Public/Açık)
+
+
+{
+  "statusCode": 200,
+  "type": "PreviewFeaturesResponseModel", // Yanıt modelinin yeni ismi
+  "message": "Önizleme özellikleri başarıyla alındı.",
+
+  "data": {
+    "previewFeatures": [
+      {
+        "id": "A100",
+        "pageDirectionCode": 100,
+        "title": "Etkinlik Kitapları",
+        "description": "Etkinlik kitapları sayfasına gider.",
+        "iconUrl": "https://cdn.example.com/icons/secure.png"
+      },
+      {
+        "id": "B101",
+        "pageDirectionCode": 101,
+        "title": "Tek Tıkla Ödeme",
+        "description": "Favori ödeme yönteminizi seçerek saniyeler içinde işlemi tamamlayın.",
+        "iconUrl": "https://cdn.example.com/icons/speed.png"
+      },
+      {
+        "id": "C102",
+        "pageDirectionCode": 102,
+        "title": "7/24 Canlı Destek",
+        "description": "Yardıma ihtiyacınız olduğunda uzman ekibimiz her zaman yanınızda.",
+        "iconUrl": "https://cdn.example.com/icons/support.png"
+      }
+
+    ]
+  }
+}
