@@ -14,18 +14,21 @@ RESPONSE MODEL: InitResponseModel
   "statusCode": 200,
   "type": "InitResponseModel",
   "message": "Uygulama başlatma yapılandırması başarıyla alındı.",    //İstek başarılı oldu ve yeni konfigürasyon verisi gövdede (body) mevcut.
-  // ----------------------------------------
-  // ZORUNLU YAPILANDIRMA AYARLARI
-  // ----------------------------------------
-  "minSupportedVersion": "1.4.5",   // Minimum desteklenen uygulama sürümü
-  "apiBaseUrl": "https://api.mybackend.com/v2/",  /// Bundan sonra bu baseUrl'e baglanacagiz.
-  "maintenanceMode": false
-  "forceUpdate": false,
+
 
   // ----------------------------------------
-  // DİNAMİK ONBOARDING İÇERİĞİ
+  // DİNAMİK ONBOARDING İÇERİĞİ onboardingSlides listesini doner
   // ----------------------------------------
  "data":{
+
+// ----------------------------------------
+// ZORUNLU YAPILANDIRMA AYARLARI
+// ----------------------------------------
+"minSupportedVersion": "1.4.5",   // Minimum desteklenen uygulama sürümü
+"apiBaseUrl": "https://api.mybackend.com/v2/",  /// Bundan sonra bu baseUrl'e baglanacagiz.
+"maintenanceMode": false
+"forceUpdate": false,
+
   "onboardingSlides": [
           {
           "title": "Akademik Temelli Bilimsel Model",
