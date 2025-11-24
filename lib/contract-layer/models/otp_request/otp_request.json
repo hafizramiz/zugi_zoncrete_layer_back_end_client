@@ -1,0 +1,25 @@
+
+/// Burasi ornek teskil etmektedir.
+Bileşen,Değer/Açıklama
+HTTP Metodu,POST
+Endpoint,/api/otp/request (veya /api/auth/sendOtp)
+
+REQUEST MODEL,OtpRequestModel
+RESPONSE MODEL,OtpResponseModel
+
+
+
+
+{
+    // ----------------------------------------
+    // KÖK DİZİN (Genel İstek Zarfı)
+    // ----------------------------------------
+    "type": "OtpRequestModel",      /// Back-ende gönderilecek request modelin ismini belirtir.
+    "requestTag": "SendOtpRequest", /// İstekle ilişkilendirilen etiket (örneğin "LoginView", "RegisterView")
+    // ----------------------------------------
+    // DATA YÜKÜ (OTP İstek Bilgileri)
+    // ----------------------------------------
+      "data": {
+      "identifier": "+905xx1234567",         /// OTP'nin gönderileceği **telefon numarası** veya **e-posta adresi**.
+}
+}

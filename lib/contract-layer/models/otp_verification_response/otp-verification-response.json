@@ -1,0 +1,28 @@
+OtpVerificationResponseModel (Yanıt Gövdesi)
+
+HTTP Durumu: 200 OK
+
+      {
+      // Genel Yanıt Zarfı
+      "statusCode": 200,
+      "type": "OtpVerificationResponseModel",
+      "message": "Kimlik doğrulama başarılı. Oturum başlatıldı.",
+
+              "data": {
+              "accessToken": "eyJhbGciOiJIUzI1NiI...",    /// **JWT (JSON Web Token):** Sonraki tüm API çağrılarında (Header'da) kullanılacak.
+              "refreshToken": "a_long_string_to_refresh...", /// accessToken süresi dolunca yenilemek için kullanılır.
+              "expiresInSeconds": 3600,                   /// accessToken'in geçerlilik süresi (1 saat)
+            }
+      }
+
+
+
+
+        /// ornek hata durumu:
+    {
+        // ----------------------------------------
+        "statusCode": 401,
+        "type": "OtpVerificationResponseModel",       /// Hata yanıtlarında genellikle genel bir Error modeli kullanılır.
+        "message": "Doğrulama başarısız. Kimlik bilgileri geçersiz.",
+        "data": null
+    }

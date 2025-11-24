@@ -1,0 +1,32 @@
+
+
+OtpRequestResponseModel (Yanıt Gövdesi)
+HTTP Durumu: 200 OK
+
+{
+  // Genel Yanıt Zarfı
+  "statusCode": 200,
+  "type": "OtpResponseModel",
+  "message": "OTP has been sent to the provided identifier.",
+
+    "data": {
+      "identifierMasked": "**905xx***4567", /// Kullanıcıya hangi numaraya gönderildiğini göstermek için.
+      "retryAfterSeconds": 60,            /// Kullanıcının yeni OTP istemeden önce beklemesi gereken süre (hız limiti).
+      "verificationToken": "V-TOKEN-XYZ-123", /// **KRİTİK:** Bu, sunucunun doğrulama (verify) isteğinde bekleyeceği tek kullanımlık bir jetondur.
+      "nextAction": "VerifyOtpScreen"       /// Front-end'in bir sonraki aksiyonu.
+      "isDemo": false,
+      "jobId": "176397756148477634810510561"
+  }
+}
+
+
+
+
+
+
+
+
+//Senaryo,HTTP Durumu,errorCode,Kullanıcı Mesajı
+//Geçersiz Telefon,400 Bad Request,VALIDATION_ERROR,Telefon numarası formatı hatalı.
+//Çok Sık İstek,429 Too Many Requests,RATE_LIMIT_EXCEEDED,Lütfen 35 saniye bekleyin.
+//SMS Hizmet Hatası,503 Service Unavailable,SMS_GATEWAY_FAILURE,Geçici bir teknik sorun var.

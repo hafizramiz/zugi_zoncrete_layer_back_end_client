@@ -1,0 +1,29 @@
+
+
+OtpVerificationRequestModel (İstek Gövdesi)
+
+Metod: POSTEndpoint: /api/v1/otp/verify
+
+
+{
+  // Genel İstek Zarfı
+  "type": "OtpVerificationRequestModel",
+  "requestTag": "VerifyOtpCode",
+
+  "data": {
+    "identifier": "+905xx1234567",             /// İlk istekteki ile aynı tanımlayıcı.
+    "otpCode": "123456",                       /// Kullanıcının SMS'ten girdiği 6 haneli kod.
+    "verificationToken": "V-TOKEN-XYZ-123"     /// **KRİTİK:** Request aşamasından alınan token. (Brute-force saldırılarını engellemeye yardımcı olur).
+  }
+}
+
+
+
+
+/// Eksi hali
+
+
+{
+"phone": "5527843731",
+"code": 0
+}
