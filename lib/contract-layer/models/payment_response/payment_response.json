@@ -1,0 +1,23 @@
+
+
+
+Method POST: PaymentCreationResponseModel
+
+{
+  // ----------------------------------------
+  // KÖK DİZİN (Genel Yanıt Zarfı)
+  // ----------------------------------------
+
+  "statusCode": 200,
+  "type": "PaymentResponseModel",
+  "message": "Ödeme kaydı zaten mevcut.",
+    "data": {
+    "paymentID": 1,
+    "userID": 2460,
+    "profileID": 0,
+    "paymentType": "googleplay",
+    "status": null,
+    "purchaseToken": "12345vdfger234234",
+    "amount": 2000.0000
+    }
+}

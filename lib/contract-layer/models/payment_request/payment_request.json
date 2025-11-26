@@ -1,0 +1,56 @@
+
+Method: POST
+Endpoint: /api/v1/payment/verify/inappurchase
+
+      {
+            "type": "paymentRequestType",
+            "requestTag": "paymentRequest",
+            "data": {
+            "paymentType": "googleplay",
+            "status": "success",
+            "purchaseToken": "12345vdfger234234",
+            "amount": 2000
+            }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  // ----------------------------------------
+  // KÖK DİZİN (Genel İstek Zarfı)
+  // ----------------------------------------
+  "type": "PaymentRequestModel",
+  "requestTag": "InAppPurchaseVerification",
+  // ----------------------------------------
+  // DATA YÜKÜ (Ödeme ve Bağlamsal Bilgiler)
+  // ----------------------------------------
+  "data": {
+    // 1. TEMEL ÖDEME BİLGİLERİ (Sizin belirttikleriniz)
+    "paymentType": 0,           /// Ödeme türü (Örn: IAP - Google Play/App Store)
+    "status": 0,                /// İşlem durumu (Genellikle 0: Başarılı, API'ye bağlı)
+    "purchaseToken": "string",  /// Satın alma doğrulama jetonu (Google Play/App Store'dan gelen asıl token)
+    "amount": 0,                /// İşlem miktarı (Sunucu tarafında kontrol için)
+
+    // 2. IAP'YE ÖZEL İLAVE ZORUNLU BİLGİLER
+    "productId": "com.app.example.premium_monthly", /// Satın alınan ürünün benzersiz ID'si
+    "platform": "Android",                          /// Satın alma platformu (Android/iOS)
+
+    // 3. KULLANICI / CİHAZ DOĞRULAMA BİLGİLERİ (InitRequestModel'den referans alınmıştır)
+    "deviceId": "ABC-DEVICE-ID",          /// Cihazın benzersiz kimliği (Güvenlik için önemli)
+    "appVersion": "1.5.0",                /// Uygulama version bilgisi
+    "language": "tr",                     /// Kullanıcı dili
+    "clientId": "mobile_client_id",       /// Hangi mobil uygulama tarafından yapıldığı
+    "transactionId": "OPTIONAL-SERVER-ID" /// (Opsiyonel) Eğer işlem bir ön sunucu işlemiyle başladıysa, o işlemin ID'si
+  }
+}
