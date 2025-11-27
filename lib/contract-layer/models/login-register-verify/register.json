@@ -1,0 +1,63 @@
+
+
+Metot,POST,Sunucuda yeni bir kaynak (kullanıcı hesabı) oluşturulduğu için POST kullanılır.
+Uç Nokta,/api/v1/register,Kayıt işlemini başlatan adrestir.
+
+
+
+/// Register Request Model (İstek Gövdesi)
+{
+  "type": "RegisterRequestModel",
+  "requestTag": "RegisterUser",
+    "data": {
+    "ad": "Deniz",
+    "soyad": "Kaya",
+    "telefonNumarasi": "+905xx1234567"
+    }
+}
+1. Kayit yoksa kayit olustur.  Parametreler backende kayit edilir. OTP generate edilir. gonderilir.
+
+
+  {
+  "statusCode": 201,
+  "type": "RegistrationResponseModel",
+  "message": "Kayıt başarılı! Telefon numaranıza doğrulama kodu gönderilmiştir.",
+    "data": {
+    "identifierMasked": "+905xx***4567",
+    "retryAfterSeconds": 60,
+    "verificationToken": "V-REG-TOKEN-456-ABC",
+    "nextAction": "VerifyOtpScreen",
+    "isDemo": false,
+    "jobId": "176397756148477634810510561",
+    "userId": "usr_7e4d9c0a-0b2f-48e3-b5c1-9f2d1a3b4c5d",
+    "isVerified": false,
+    "registrationStatus": "PENDING_OTP_VERIFICATION"
+    }
+  }
+
+
+/// Not Daha once login-register-verify olmus kullanici kayit olmaya calisirsa
+{
+    "statusCode": 409,
+    "type": "RegistrationResponseModel",
+    "message": "Kayıt başarısız. Bu telefon numarası zaten kayıtlı.",
+    "data": null
+}
+
+
+
+
+
+
+
+
+
+
+
+POST /register
+
+
+
+
+
+POST /api/v1/verify-otp

@@ -19,7 +19,7 @@ import '../config/config.dart';
 /// Request icinde idToken olacak. Bu token ile ikinci istegin gelmemesini saglayacak
 /// Client splash ekraninda iken cihaz bilgilerini toplayip server'a gonderiyor
 /// Bi de token gonderiyor ve server tokeni onaylayio idToken veriyor.
-/// Passsword reset ve diger islemler ornegin otp request idToken ile yapilacak
+/// Passsword reset ve diger islemler ornegin otp.json request idToken ile yapilacak
 /// Birden fazla kez Passsword reset istegi engellenecek.
 class InitRequestModel {
   final String type;

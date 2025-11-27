@@ -1,0 +1,33 @@
+--- Login ---
+Giriş (Login)	POST /api/v1/login
+
+Login Request Model
+
+{
+  "type": "LoginRequestModel",
+  "requestTag": "LoginUser",
+  "data": {
+    "telefonNumarasi": "+905xx1234567"
+  }
+}
+
+
+Login Response Model (Yanıt Gövdesi)
+{
+  "statusCode": 200,
+  "type": "LoginResponseModel",
+  "message": "Giriş başarılı! Telefon numaranıza doğrulama kodu gönderilmiştir.",
+  "data": {
+    "identifierMasked": "+905xx***4567",
+    "retryAfterSeconds": 60,
+    "verificationToken": "V-LOG-TOKEN-789-XYZ",
+    "nextAction": "VerifyOtpScreen",
+    "isDemo": false,
+    "jobId": "176397756148477634810510561",
+    "userId": "usr_7e4d9c0a-0b2f-48e3-b5c1-9f2d1a3b4c5d",
+    "isVerified": false,
+    "loginStatus": "PENDING_OTP_VERIFICATION"
+  }
+}
+
+

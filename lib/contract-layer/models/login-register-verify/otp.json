@@ -1,0 +1,37 @@
+
+
+Kısım,Değer,Açıklama
+Metot,POST,Sunucuya bir işlem (doğrulama) yapması için veri gönderildiği için POST kullanılır.
+Uç Nokta,/api/v1/verify-otp,OTP kodunun ve verificationToken'ın gönderildiği merkezi doğrulama adresi.
+
+
+{
+  "type": "VerifyOtpRequestModel",
+  "requestTag": "VerifyOtp",
+    "data": {
+    "verificationToken": "V-REG-TOKEN-456-ABC",
+    "otpCode": "123456"
+    "deviceId": "web-chrome-v1-uuid-12345"
+    }
+}
+
+
+/// Repoonse Model
+    {
+  "statusCode": 200,
+  "type": "VerifyOtpResponseModel",
+  "message": "Doğrulama başarılı. Oturum açtınız.",
+    "data": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI...", // Erişim için kullanılan kısa ömürlü token
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI...", // Yeni erişim token'ı almak için kullanılan uzun ömürlü token
+    "tokenType": "Bearer",
+    "expiresIn": 3600, // Token'ın saniye cinsinden geçerlilik süresi
+    "userId": "usr_7e4d9c0a-0b2f-48e3-b5c1-9f2d1a3b4c5d"
+    }
+}
+
+
+
+    İşlem,Token Değeri,Kaydedilen Bağlam Bilgileri
+Kayıt (Register),V-REG-TOKEN-456-ABC,"{""otp"": ""123456"", ""user_id"": ""..."", ""flow_type"": ""REGISTER"", ""expires_at"": ""...""}"
+Giriş (Login),V-LOG-TOKEN-789-XYZ,"{""otp"": ""789012"", ""user_id"": ""..."", ""flow_type"": ""LOGIN"", ""expires_at"": ""...""}"
