@@ -26,7 +26,6 @@ Uç Nokta,/api/v1/verify-otp,OTP kodunun ve verificationToken'ın gönderildiği
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI...", // Yeni erişim token'ı almak için kullanılan uzun ömürlü token
     "tokenType": "Bearer",
     "expiresIn": 3600, // Token'ın saniye cinsinden geçerlilik süresi
-    "userId": "usr_7e4d9c0a-0b2f-48e3-b5c1-9f2d1a3b4c5d"
     }
 }
 
